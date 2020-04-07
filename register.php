@@ -2,6 +2,7 @@
    include_once ('lib/header.php');
    session_start();
 ?>
+<h3>Registration</h3>
 <p><strong> Please fill the form below to complete your registration</strong></p>
 <p>Note that all fields are</p>
 

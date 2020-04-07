@@ -41,7 +41,6 @@ else{
    'gender' => $gender,
    'designation' => $designation
    ];
-         $i = 0;
    for ($i = 0; $i <= $idCount ; $i++){
       $currentUser = $dbArray[$i];
       if($currentUser == $email . '.json'){
