@@ -26,18 +26,33 @@ if ($error == True) {
    $_SESSION["error"] = "Please fill the form completely";
 }
 else{
+   $dbArray = scandir("db/users/");
+   $idCount = count($dbArray);
+   $userCount = ($idCount - 1);
+
    $userDetails = [
-   'id' => 1,
+   'id' => $userCount,
    'first_name' => $first_name,
    'last_name' => $last_name,
    'email' => $email,
-   'password' => $password,
+   'password' => password_hash($password, PASSWORD_DEFAULT),
    'department' => $department,
    'house_address' => $house_address,
    'gender' => $gender,
    'designation' => $designation
    ];
-   echo file_put_contents("db/users/" .$first_name . $last_name . ".json",$userDetails);
+         $i = 0;
+   for ($i = 0; $i <= $idCount ; $i++){
+      $currentUser = $dbArray[$i];
+      if($currentUser == $email . '.json'){
+         $_SESSION["error"] = "Sorry, This email is already registered! Please, try another email.";
+         header("Location: register.php");
+         die();
+      }
+   }
+
+   
+   file_put_contents("db/users/" . $email . ".json", json_encode($userDetails));
    $_SESSION["success"] = "Congratulations, You are now registered! Please, You can now log in.";
    header("Location: login.php");
 }
