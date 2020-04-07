@@ -1,3 +1,3 @@
-<?php include ('/lib/header.php'); ?>
+<?php include_once ('lib/header.php'); ?>
    Reset password here
-   <?php include ('/lib/footer.php'); ?>
+   <?php include_once ('lib/footer.php'); ?>

@@ -1,52 +1,119 @@
-<?php include ('/lib/header.php'); ?>
+<?php
+   include_once ('lib/header.php');
+   session_start();
+?>
 <p><strong> Please fill the form below to complete your registration</strong></p>
-<p>Note that all fields are required</p>
+<p>Note that all fields are</p>
 
 <form action="processreg.php" method="POST">
    <p>
+      <?php
+         if (isset($_SESSION["error"]) && !empty($_SESSION["error"])){
+            echo "<span style='color:red'>" . $_SESSION['error'] . "</span>";
+         }
+      ?>
+   </p>
+   <p>
       <label> First Name </label><br>
-      <input type="text" name="first_name" placeholder="First Name" required>
+      <input 
+      <?php
+      if (isset($_SESSION["first_name"])){
+         echo "value=" . $_SESSION['first_name'];
+      }
+      ?>
+      type="text" name="first_name" placeholder="First Name">
    </p>
    <p>
       <label> Last Name </label><br>
-      <input type="text" name="last_name" placeholder="Last Name" required>
+      <input 
+      <?php
+      if (isset($_SESSION["last_name"])){
+         echo "value=" . $_SESSION['last_name'];
+      }
+      ?>
+      type="text" name="last_name" placeholder="Last Name">
    </p>
    <p>
-      <label for="">Gender</label><br>
-      <select name="gender" required>
+      <label>Gender</label><br>
+      <select name="gender">
          <option value="">Select One</option>
-         <option>Male</option>
-         <option>Female</option>
+         <option 
+            <?php
+               if (isset($_SESSION["gender"]) && $_SESSION["gender"] == "Female"){
+               echo "selected";
+               }
+            ?>
+         >Female</option>
+         <option
+            <?php
+               if (isset($_SESSION["gender"]) && $_SESSION["gender"] == "Male"){
+               echo "selected";
+               }
+            ?>
+         >Male</option>
       </select>
    </p>
    <p>
       <label> House Address</label><br>
-      <input type="text" name="house_address" placeholder="Enter address" required>
+      <input 
+      <?php
+      if (isset($_SESSION["house_address"])){
+         echo "value=" . $_SESSION['house_address'];
+      }
+      ?>
+      type="text" name="house_address" placeholder="Enter address">
    </p>
 
    <p>
       <label> Email address </label><br>
-      <input type="text" name="email" placeholder="example@gmail.com" required>
+      <input 
+      <?php
+      if (isset($_SESSION["email"])){
+         echo "value=" . $_SESSION['email'];
+      }
+      ?>
+      type="text" name="email" placeholder="example@gmail.com">
    </p>
    <p>
       <label> Password </label><br>
-      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="password" placeholder="Password">
    </p>
    
    <hr/>
    <p>
       <label for="">Designation</label><br>
-      <select name="designation" required>
+      <select name="designation">
          <option value="">Select One</option>
-         <option>Medical Team (MT)</option>
-         <option>Patient</option>
+         <option
+            <?php
+               if (isset($_SESSION["designation"]) && $_SESSION["designation"] == "Medical Team (MT)"){
+               echo "selected";
+               }
+            ?>
+         >Medical Team (MT)</option>
+         <option
+            <?php
+               if (isset($_SESSION["designation"]) && $_SESSION["designation"] == "Patient"){
+               echo "selected";
+               }
+            ?>
+         >Patient</option>
       </select>
    </p>
    <p>
       <label> Department </label><br>
-      <input type="text" name="department" placeholder="Department" required>
+      <input 
+      <?php
+      if (isset($_SESSION["department"])){
+         echo "value=" . $_SESSION['department'];
+      }
+      ?>
+      type="text" name="department" placeholder="Department">
    </p>
    <p><button type="submit">Submit Details</button></p>
+   <?php
+      session_unset();
+   ?>
 </form>
 
-<?php include ('/lib/footer.php'); ?>
+<?php include_once ('lib/footer.php'); ?>
