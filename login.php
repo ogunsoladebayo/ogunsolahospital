@@ -1,5 +1,9 @@
-<?php session_start();
-include_once ('lib/header.php'); ?>
+<?php
+include_once ('lib/header.php');
+if (isset($_SESSION["logged_in"]) && !empty($_SESSION["logged_in"])) {
+   header("Location: dashboard.php");
+   }
+ ?>
 <p>
    <?php
       if (isset($_SESSION["success"]) && !empty($_SESSION["success"])){
@@ -34,9 +38,5 @@ include_once ('lib/header.php'); ?>
    
    <hr/>
    <p><button type="submit">Login</button></p>
-   <?php
-      session_unset();
-   ?>
 </form>
-Login here
    <?php include_once ('lib/footer.php'); ?>

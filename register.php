@@ -1,10 +1,12 @@
 <?php
    include_once ('lib/header.php');
-   session_start();
+   if (isset($_SESSION["logged_in"]) && !empty($_SESSION["logged_in"])) {
+   header("Location: dashboard.php");
+   }
 ?>
 <h3>Registration</h3>
 <p><strong> Please fill the form below to complete your registration</strong></p>
-<p>Note that all fields are</p>
+<p>All fields are required</p>
 
 <form action="processreg.php" method="POST">
    <p>
@@ -13,6 +15,11 @@
             echo "<span style='color:red'>" . $_SESSION['error'] . "</span>";
          }
       ?>
+      <?php 
+      if (isset($_SESSION["$emailError"]) && !empty($_SESSION["$emailError"])){
+            echo "<span style='color:red'>" . $_SESSION['$emailError'] . "</span>";}
+      ?>
+
    </p>
    <p>
       <label> First Name </label><br>
@@ -23,6 +30,10 @@
       }
       ?>
       type="text" name="first_name" placeholder="First Name">
+      <?php 
+      if (isset($_SESSION["first_name_error"]) && !empty($_SESSION["first_name_error"])){
+            echo "<span style='color:red'>" . $_SESSION['first_name_error'] . "</span>";}
+      ?>
    </p>
    <p>
       <label> Last Name </label><br>
@@ -74,6 +85,7 @@
       }
       ?>
       type="text" name="email" placeholder="example@gmail.com">
+      
    </p>
    <p>
       <label> Password </label><br>
@@ -112,9 +124,8 @@
       type="text" name="department" placeholder="Department">
    </p>
    <p><button type="submit">Submit Details</button></p>
-   <?php
-      session_unset();
-   ?>
 </form>
 
-<?php include_once ('lib/footer.php'); ?>
+<?php include_once ('lib/footer.php'); 
+// session_unset()
+?>
