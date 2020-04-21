@@ -1,6 +1,6 @@
 <?php
    include_once ('lib/header.php');
-   if (!isset($_GET["token"]) && !isset($_SESSION['token'])){
+   if (!$_SESSION['logged_in'] && !isset($_GET["token"]) && !isset($_SESSION['token'])){
       $_SESSION["error"] = "You are not authorized to view this page";
       header("Location: login.php");
    }
@@ -14,6 +14,7 @@
       session_destroy();}
       ?>
    </p>
+   <?php if (!$_SESSION['logged_in']){ ?>
    <input   <?php
                if (isset($_SESSION['token'])){
                   echo "value='" . $_SESSION['token'] . "'";
@@ -21,9 +22,10 @@
                   echo "value='" . $_GET['token'] . "'";
                }
             ?> type="hidden" name="token"/>
+   <?php } ?>
    <p>
       <label> Email address </label><br>
-      <input value="[email]" type="text" name="email" placeholder="example@gmail.com">
+      <input <?php if (isset($_SESSION['email'])){echo "value=" . $_SESSION['email'];} ?> type="text" name="email" placeholder="example@gmail.com">
    </p>
    <p>
    <label>Enter your new Password </label><br>
