@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('functions/user.php');
 $error = False;
 // collecting each data from array
 
@@ -37,8 +38,6 @@ elseif ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
 // }
 
 else{
-   $dbArray = scandir("db/users/");
-   $idCount = count($dbArray);
    $userCount = ($idCount - 1);
 
    $userDetails = [
@@ -52,17 +51,15 @@ else{
    'gender' => $gender,
    'designation' => $designation
    ];
-   for ($i = 0; $i <= $idCount ; $i++){
-      $currentUser = $dbArray[$i];
-      if($currentUser == $email . '.json'){
-         $_SESSION["error"] = "Sorry, This email is already registered! Please, try another email.";
-         header("Location: register.php");
-         die();
-      }
-   }
+   $userExists = search_user($email);
 
+   if($userExists){
+      $_SESSION["error"] = "Sorry, This email is already registered! Please, try another email.";
+      header("Location: register.php");
+      die();
+   }
    
-   file_put_contents("db/users/" . $email . ".json", json_encode($userDetails));
+   save_user($userObject);
    $_SESSION["success"] = "Congratulations, You are now registered! Please, You can now log in.";
    header("Location: login.php");
 }

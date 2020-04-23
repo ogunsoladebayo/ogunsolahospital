@@ -1,20 +1,23 @@
 <?php
    include_once ('lib/header.php');
-   if (!$_SESSION['logged_in'] && !isset($_GET["token"]) && !isset($_SESSION['token'])){
+   require_once('functions/alert.php');
+   require_once('functions/user.php');
+   ?>
+   <p>
+   <?php 
+   if (!user_loggedIn() &&  !token_set()){
       $_SESSION["error"] = "You are not authorized to view this page";
       header("Location: login.php");
    }
  ?>
+ </p>
 <h3>Change password</h3>
-<p>Change password for: [email] </p>
+<!-- <p>Change password for: <?php echo $_SESSION['full_name']; ?> </p> -->
 <form action="processreset.php" method="POST">
    <p>
-      <?php if (isset($_SESSION["error"]) && !empty($_SESSION["error"])){
-      echo "<span style='color:red'>" . $_SESSION['error'] . "</span>";
-      session_destroy();}
-      ?>
+      <?php print_alert(); ?>
    </p>
-   <?php if (!$_SESSION['logged_in']){ ?>
+   <?php if (user_loggedIn() ){ ?>
    <input   <?php
                if (isset($_SESSION['token'])){
                   echo "value='" . $_SESSION['token'] . "'";

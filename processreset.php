@@ -1,12 +1,15 @@
 <?php
-
 session_start();
+require_once('functions/user.php');
+require_once('functions/alert.php');
+require_once('functions/redirect.php');
+
 $error = False;
 
-if (!$_SESSION['logged_in']){
-$token = $_POST['token'] != "" ? $_POST['token'] : $error = True;
-$_SESSION["token"] = $token;
-}
+// if (!$_SESSION['logged_in']){
+// $token = $_POST['token'] != "" ? $_POST['token'] : $error = True;
+// $_SESSION["token"] = $token;
+// }
 $email = $_POST['email'] != "" ? $_POST['email'] : $error = True;
 $password = $_POST['password'] != "" ? $_POST['password'] : $error = True;
 
@@ -14,47 +17,38 @@ $_SESSION["email"] = $email;
 
 if ($error == True) {
    // print a more advanced error message with accurate feedback
-   header("Location: register.php");
-   $_SESSION["error"] = "Please fill the form completely";
+   set_Alert('error', "Please fill the form completely");
+   redirect_to("reset.php");
 }
 else {
-      $tokendata = scandir("db/token/");
-      $$tokencount = count($tokendata);
+      $checkToken = user_loggedIn() ? true : find_token($email);
+     
+      if ($checkToken){
+                  
+                  $userExists = search_user($email);
 
-      for ($i = 0; $i < $tokencount ; $i++){
-         $$currentTokenFile = $tokendata[$i];
-         if($currentTokenFile == $email . ".json"){
-            $tokenContent = json_decode(file_get_contents("db/token/" . $currentTokenFile));
-            $userToken = $tokenContent -> token;
-
-            if ($_SESSION['logged_in']){
-                  $checkToken = true;
-            }else{
-                  $checkToken = $userToken == $token;
-            }
-            if ($checkToken){
-                  $dbArray = scandir("db/users/");
-                  $idCount = count($dbArray);
-               
-                  for ($i = 0; $i < $idCount ; $i++){
-                     $currentUser = $dbArray[$i];
-                     if($currentUser == $email . ".json"){
-                      $userDetails = json_decode(file_get_contents("db/users/" . $currentUser));
-                      $userDetails -> password = password_hash($password, PASSWORD_DEFAULT);
+                  if($userExists){
+                        // $userDetails = json_decode(file_get_contents("db/users/" . $currentUser));
+                        $userDetails = search_user($email);
+                        $userDetails -> password = password_hash($password, PASSWORD_DEFAULT);
 
                       unlink("db/users/" . $currentUser);
-                      file_put_contents("db/users/" . $email . ".json", json_encode($userDetails));
+                      unlink("db/token/" . $currentUser);
+                      save_user($userObject);
 
-                      $_SESSION["success"] = "Password successfully changed,Please log in.";
-                      header("Location: login.php");  
-                      die();                    
+                      set_Alert('success', "Password successfully changed,Please log in.");
+
+                      $subject = "Password Reset Successful";
+                      $message = "A change has been made to your account (" . $email . ") at Ogunsola Hospital; Your password has been successfully changed";
+                      send_mail($subject, $message, $email);
+
+                      redirect_to("login.php");  
+                      return;          
                       }
                   }
-            }   
-            }
-         }
-      $_SESSION["error"] = "Password reset failed: Invalid request/Token expired";
-      header("Location: login.php");
+            set_Alert('error', "Password reset failed: Invalid request/Token expired");
+            redirect_to("login.php");
+      
       }
 
 ?>
