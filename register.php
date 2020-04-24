@@ -114,15 +114,34 @@
          </select>
       </p>
       <p>
-         <label class="label" for="department"> Department </label><br>
-         <input 
-         <?php
-         if (isset($_SESSION["department"])){
-            echo "value=" . $_SESSION['department'];
-         }
-         ?>
-         type="text" id="department" class="form-control" name="department" placeholder="Department">
+         <label for="department">Department</label><br>
+         <select class="form-control" name="department">
+            <option value="">Select One</option>
+            <option
+               <?php
+                  if (isset($_SESSION["department"]) && $_SESSION["department"] == "Laboratory"){
+                  echo "selected";
+                  }
+               ?>
+            >Laboratory</option>
+            <option
+               <?php
+                  if (isset($_SESSION["department"]) && $_SESSION["department"] == "X-ray"){
+                  echo "selected";
+                  }
+               ?>
+            >X-ray</option>
+            <option
+               <?php
+                  if (isset($_SESSION["department"]) && $_SESSION["department"] == "Maternity"){
+                  echo "selected";
+                  }
+               ?>
+            >Maternity</option>
+
+         </select>
       </p>
+
       <p>
          <button class="btn btn-small btn-success" type="submit">Submit Details</button>
       </p>
