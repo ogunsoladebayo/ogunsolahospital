@@ -17,7 +17,7 @@
    </div>
    <div class="row col-6">
 
-   <form action="db/appointments/processappointment.php" method="POST">
+   <form action="processappointment.php" method="POST">
       <p>
          <?php print_alert(); ?>
       </p>
