@@ -1,17 +1,1 @@
-{"Laboratory": 
-[ {"full_name":"First Patient",
-    "appointment_date":"July",
-    "appointment_time":"2pm",
-    "appointment_nature":"Leg damage",
-    "initial_complaint":"Stomach",
-    "department":"Laboratory"
-    },
-    {"full_name":"First Patient",
-        "appointment_date":"June",
-        "appointment_time":"2pm",
-        "appointment_nature":"Brain damage",
-        "initial_complaint":"Stomach",
-        "department":"Laboratory"
-    }
-]
-}
+{"Laboratory":[{"full_name":"first patient","appointment_date":"July","appointment_time":"10pm","appointment_nature":"Sick","initial_complaint":"Stomach","department":"Laboratory"},{"full_name":"first patient","appointment_date":"July","appointment_time":"2pm","appointment_nature":"Brain Touch","initial_complaint":"Stomach","department":"Laboratory"}]}

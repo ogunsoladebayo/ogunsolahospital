@@ -62,6 +62,7 @@ else{
       save_mt($userDetails);
    }else{
       save_patient($userDetails);
+      
    }
    
    $_SESSION["success"] = "Congratulations, You are now registered! Please, You can now log in.";

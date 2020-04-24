@@ -52,10 +52,12 @@ function search_mt($email = ""){
 
 function save_patient($userDetails){
     file_put_contents("db/users/patients/" . $userDetails['email'] . ".json", json_encode($userDetails));
+    file_put_contents("db/users/patients/patients.json", json_encode($userDetails), FILE_APPEND);
 
 }
 
 function save_mt($userDetails){
     file_put_contents("db/users/mt/" . $userDetails['email'] . ".json", json_encode($userDetails));
+    file_put_contents("db/users/mt/mt.json", json_encode($userDetails), FILE_APPEND);
 
 }

@@ -2,6 +2,7 @@
 session_start();
 require_once('functions/user.php');
 require_once('functions/redirect.php');
+require_once('functions/appointment.php');
 $error = False;
 // collecting each data from array
 
@@ -24,16 +25,17 @@ if ($error == True) {
    redirect_to('appointment.php');
 }
 else{
-
-    $Appointment_details = [
+    $update = save_appointment($department);
+    $update[] = Array(
     'full_name' => $_SESSION['logged_in'],
     'appointment_date' => $appointment_date,
     'appointment_time' => $appointment_time,
     'appointment_nature' => $appointment_nature,
     'initial_complaint' => $initial_complaint,
     'department' => $department
-    ];
-        file_put_contents("db/appointments/" . $department . ".json",  json_encode($Appointment_details), FILE_APPEND);
+    );
+
+    file_put_contents("db/appointments/" . $department . ".json", json_encode($update));
     
     set_Alert('success', 'You have successfully booked an appointment with ' . $department . ' department');
     redirect_to('dashboard.php');
