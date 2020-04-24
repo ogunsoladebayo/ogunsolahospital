@@ -14,13 +14,13 @@
 
    <?php
    if ($_SESSION['role'] == 'Patient'){
-      echo "   <a href=''>Pay Bills</a> | 
+      echo "   <a href='bills.php'>Pay Bills</a> | 
       <a href='appointment.php'>Book Appointment</a>";
    }
    elseif ($_SESSION['role'] == 'Medical Team (MT)'){
       echo "<a href='db/users/patients.php'>Check Patients' details</a> ";
       if (file_exists('db/appointments/' . $_SESSION['department'] . '.json')){
-      echo "  | <a href='db/appointments/" . $_SESSION['department'] . ".json'>View Appointments </a> ";
+      echo "  | <a href='mt.php'>View Appointments </a> ";
       }
       else{
          echo " <p> You have no pending appointments </p> ";

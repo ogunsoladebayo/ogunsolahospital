@@ -51,15 +51,19 @@ else{
    'gender' => $gender,
    'designation' => $designation
    ];
-   $userExists = search_user($email);
+   $userExists = search_patient($email) ?: search_mt($email);
 
    if($userExists){
       $_SESSION["error"] = "Sorry, This email is already registered! Please, try another email.";
       header("Location: register.php");
       die();
    }
+   if($designation == 'Medical Team (MT)'){
+      save_mt($userDetails);
+   }else{
+      save_patient($userDetails);
+   }
    
-   save_user($userDetails);
    $_SESSION["success"] = "Congratulations, You are now registered! Please, You can now log in.";
    header("Location: login.php");
 }

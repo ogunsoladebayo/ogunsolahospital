@@ -27,11 +27,11 @@ else {
      
       if ($checkToken){
                   
-                  $userExists = search_user($email);
+                  $userExists = search_mt($email) ?: search_patient($email);
 
                   if($userExists){
                         // $userDetails = json_decode(file_get_contents("db/users/" . $currentUser));
-                        $userDetails = search_user($email);
+                        $userDetails = search_mt($email) ?: search_patient($email);
                         $userDetails -> password = password_hash($password, PASSWORD_DEFAULT);
 
                       unlink("db/users/" . $email . ".json");

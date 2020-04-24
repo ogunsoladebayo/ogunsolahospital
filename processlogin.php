@@ -30,10 +30,16 @@ if (isset($errorMessage)){
    }
 
 else{
-   $currentUser = search_user($email);
-   if($currentUser){
-      $userDetails = json_decode(file_get_contents("db/users/" . $currentUser->email . ".json"));
-      $dbPassword = $userDetails -> password;
+   $currentPatient = search_patient($email);
+   $currentMt = search_mt($email);
+   if($currentPatient || $currentMt){
+      if (file_exists("db/users/mt/" . $currentMt-> email . ".json")){
+         $userDetails = json_decode(file_get_contents("db/users/mt/" . $currentMt-> email . ".json"));
+     }
+     else{
+         $userDetails = json_decode(file_get_contents("db/users/patients/" . $currentPatient-> email . ".json"));
+     }
+       $dbPassword = $userDetails -> password;
       $userPassword = password_verify($password, $dbPassword);
       if ($dbPassword == $userPassword){
       $_SESSION["id"] = $userDetails -> id;

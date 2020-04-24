@@ -10,9 +10,9 @@ if (isset($_SESSION["logged_in"]) && !empty($_SESSION["logged_in"])) {
       <h3>Login</h3>
    </div>
    <div class="row col-6">
-      <p>
          <?php print_alert(); ?>
-      </p>
+   </div>
+   <div class="row col-6">
 
       <form action="processlogin.php" method="POST">
          <p>

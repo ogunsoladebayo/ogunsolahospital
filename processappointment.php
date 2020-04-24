@@ -7,7 +7,7 @@ $error = False;
 
 $appointment_date = $_POST['appointment_date'] != "" ? $_POST['appointment_date'] : $error = True;
 $appointment_time = $_POST['appointment_time'] != "" ? $_POST['appointment_time'] : $error = True;
-$designation = $_POST['appointment_nature'] != "" ? $_POST['appointment_nature'] : $error = True;
+$appointment_nature = $_POST['appointment_nature'] != "" ? $_POST['appointment_nature'] : $error = True;
 $department = $_POST['department'] != "" ? $_POST['department'] : $error = True;
 $initial_complaint = $_POST['initial_complaint'] != "" ? $_POST['initial_complaint'] : $error = True;
 
@@ -33,11 +33,7 @@ else{
     'initial_complaint' => $initial_complaint,
     'department' => $department
     ];
-    if (file_exists("db/appointments/" . $department . ".json")){
         file_put_contents("db/appointments/" . $department . ".json",  json_encode($Appointment_details), FILE_APPEND);
-    }else{
-        file_put_contents("db/appointments/" . $department . ".json",  json_encode($Appointment_details));
-    }
     
     set_Alert('success', 'You have successfully booked an appointment with ' . $department . ' department');
     redirect_to('dashboard.php');
