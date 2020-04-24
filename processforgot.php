@@ -3,6 +3,7 @@ require_once('functions/alert.php');
 require_once('functions/redirect.php');
 require_once('functions/token.php');
 require_once('functions/user.php');
+require_once('functions/email.php');
 session_start();
 $error = False;
 
@@ -26,7 +27,7 @@ if ($error == True) {
             $token = set_token();
 
             $subject = "Password Reset Link";
-            $message = "A password reset has been initiated on your account, if you did not did not request a password reset, please ignore this message or visit localhost:8080/ogunsolahospitals/reset.php?token=" . $token . " to change your password.";
+            $message = "A password reset has been initiated on your account, if you did not did not request a password reset, please ignore this message or visit localhost:8080/ogunsolahospital/reset.php?token=" . $token . " to change your password.";
             file_put_contents("db/token/" . $email . ".json", json_encode(['token'=>$token]));
 
             send_mail($subject, $message, $email);

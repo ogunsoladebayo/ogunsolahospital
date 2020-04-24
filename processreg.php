@@ -38,10 +38,10 @@ elseif ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
 // }
 
 else{
-   $userCount = ($idCount - 1);
+   $idCount = count(scandir("db/users/"));
 
    $userDetails = [
-   'id' => $userCount,
+   'id' => $userCount = $idCount - 1,
    'first_name' => $first_name,
    'last_name' => $last_name,
    'email' => $email,
@@ -59,7 +59,7 @@ else{
       die();
    }
    
-   save_user($userObject);
+   save_user($userDetails);
    $_SESSION["success"] = "Congratulations, You are now registered! Please, You can now log in.";
    header("Location: login.php");
 }

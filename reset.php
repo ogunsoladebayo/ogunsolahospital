@@ -11,31 +11,37 @@
    }
  ?>
  </p>
-<h3>Change password</h3>
-<!-- <p>Change password for: <?php echo $_SESSION['full_name']; ?> </p> -->
-<form action="processreset.php" method="POST">
-   <p>
-      <?php print_alert(); ?>
-   </p>
-   <?php if (user_loggedIn() ){ ?>
-   <input   <?php
-               if (isset($_SESSION['token'])){
-                  echo "value='" . $_SESSION['token'] . "'";
-               }else {
-                  echo "value='" . $_GET['token'] . "'";
-               }
-            ?> type="hidden" name="token"/>
-   <?php } ?>
-   <p>
-      <label> Email address </label><br>
-      <input <?php if (isset($_SESSION['email'])){echo "value=" . $_SESSION['email'];} ?> type="text" name="email" placeholder="example@gmail.com">
-   </p>
-   <p>
-   <label>Enter your new Password </label><br>
-   <input type="password" name="password" placeholder="Password">
-   </p>
+ <div class="container">
+    <div class="row col-6">
+   <h3>Change password</h3>
+   </div>
+   <!-- <p>Change password for: <?php echo $_SESSION['full_name']; ?> </p> -->
+   <div class="row col-6">
+      <form action="processreset.php" method="POST">
+      <p>
+         <?php print_alert(); ?>
+      </p>
+      <?php if (!user_loggedIn() ){ ?>
+      <input   <?php
+                  if (isset($_SESSION['token'])){
+                     echo "value='" . $_SESSION['token'] . "'";
+                  }else {
+                     echo "value='" . $_GET['token'] . "'";
+                  }
+               ?> type="hidden" name="token"/>
+      <?php } ?>
+      <p>
+         <label> Email address </label><br>
+         <input class="form-control" ?php if (isset($_SESSION['email'])){echo "value=" . $_SESSION['email'];} ?> type="text" name="email" placeholder="example@gmail.com">
+      </p>
+      <p>
+      <label>Enter your new Password </label><br>
+      <input type="password" class="form-control" name="password" placeholder="Password">
+      </p>
 
-   <p><button type="submit">Reset Password</button></p>
+      <p><button class="btn btn-sm btn-primary" type="submit">Change Password</button></p>
 
-</form>
+      </form>
+   </div>
+</div>
    <?php include_once ('lib/footer.php'); ?>
