@@ -7,7 +7,7 @@ require_once('functions/alert.php') ?>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">Welcome to OGUNSOLA Hospital: The best healthcare specialists</h1>
-  <p class="lead">\We are all you need for a better health....</p>
+  <p class="lead">We are all you need for a better health....</p>
   <p>
       <a class="btn btn-bg btn-outline-secondary" href= "Login.php">Login</a>
       <a class="btn btn-bg btn-outline-primary" href= "Register.php">Register</a>

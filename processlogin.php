@@ -38,9 +38,9 @@ else{
       if ($dbPassword == $userPassword){
       $_SESSION["id"] = $userDetails -> id;
       $_SESSION["email"] = $userDetails -> email;
-      $_SESSION["full_name"] = $userDetails -> first_name . " " . $userDetails -> last_name;
       $_SESSION["role"] = $userDetails -> designation;
-      $_SESSION["logged_in"] = True;
+      $_SESSION["logged_in"] = $userDetails -> first_name . " " . $userDetails -> last_name;
+      $_SESSION["department"] = $userDetails -> department;
       redirect_to("dashboard.php");
       die();
    }

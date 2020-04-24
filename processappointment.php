@@ -20,23 +20,25 @@ $_SESSION["initial_complaint"] = $initial_complaint;
 
 
 if ($error == True) {
-   // print a more advanced error message with accurate feedback
-   redirect_to('register.php');
-   $_SESSION["error"] = "Please fill the form completely";
+    set_Alert('error', 'Please fill all fields');
+   redirect_to('appointment.php');
 }
 else{
 
     $Appointment_details = [
-    'full_name' => $_SESSION['full_name'],
+    'full_name' => $_SESSION['logged_in'],
     'appointment_date' => $appointment_date,
     'appointment_time' => $appointment_time,
     'appointment_nature' => $appointment_nature,
     'initial_complaint' => $initial_complaint,
     'department' => $department
     ];
-    if (!file_exists("db/appointments/" . $department)){
-        mkdir("db/appointments/" . $department, 0777, true);
+    if (file_exists("db/appointments/" . $department . ".json")){
+        file_put_contents("db/appointments/" . $department . ".json",  json_encode($Appointment_details), FILE_APPEND);
+    }else{
+        file_put_contents("db/appointments/" . $department . ".json",  json_encode($Appointment_details));
     }
-    file_put_contents("db/appointments/" . $department . "/" . $_SESSION['email'] . ".json", json_encode($Appointment_details));
+    
+    set_Alert('success', 'You have successfully booked an appointment with ' . $department . ' department');
     redirect_to('dashboard.php');
 }
