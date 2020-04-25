@@ -32,11 +32,12 @@ if (isset($errorMessage)){
 else{
    $currentPatient = search_patient($email);
    $currentMt = search_mt($email);
+
    if($currentPatient || $currentMt){
       if (file_exists("db/users/mt/" . $currentMt-> email . ".json")){
          $userDetails = json_decode(file_get_contents("db/users/mt/" . $currentMt-> email . ".json"));
      }
-     else{
+     elseif(file_exists("db/users/patients/" . $currentPatient-> email . ".json")){
          $userDetails = json_decode(file_get_contents("db/users/patients/" . $currentPatient-> email . ".json"));
      }
        $dbPassword = $userDetails -> password;

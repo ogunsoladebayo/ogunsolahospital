@@ -26,5 +26,10 @@
          echo " <p> You have no pending appointments </p> ";
       }
    }
+   elseif ($_SESSION['role'] == 'Medical Director'){
+      echo "<a href='patients.php'>View all patients</a> | ";
+      echo "<a href='mt.php'>View all Staff</a> | ";
+   }
+
    ?>
    <?php include_once ('lib/footer.php'); ?>

@@ -1,9 +1,14 @@
 <?php session_start();
-    if (file_exists("db/users/patients/firstpatient@gmail.com.json")){
-        $userDetails = json_decode(file_get_contents("db/users/patients/firstpatient@gmail.com.json"));
-    }
-    else{
-        $userDetails = json_decode(file_get_contents("db/users/mt/ogunsoladebayo@gmail.com.json"));
-    }
-    print_r($userDetails);
-      ?>
+
+$json = file_get_contents("db/appointments/Laboratory.json");
+$json_decoded = json_decode($json);
+echo '<table>';
+foreach($json_decoded as $result){
+  echo '<tr>';
+    echo '<td>'.$result-> full_name.'</td>';
+    echo '<td>'.$result-> appointment_date.'</td>';
+    echo '<td>'.$result-> appointment_time.'</td>';
+  echo '</tr>';
+}
+echo '</table>';
+?>
