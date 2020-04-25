@@ -49,14 +49,18 @@ function search_mt($email = ""){
   return false;
 }
 
-function save_patient($userDetails){
+function save_patient($userDetails, $userDetail){
     file_put_contents("db/users/patients/" . $userDetails['email'] . ".json", json_encode($userDetails));
-    file_put_contents("db/users/patients/patients.json", json_encode($userDetails), FILE_APPEND);
-
+    file_put_contents("db/users/patient.json", json_encode($userDetail));
 }
 
-function save_mt($userDetails){
+function save_mt($userDetails, $userDetail){
     file_put_contents("db/users/mt/" . $userDetails['email'] . ".json", json_encode($userDetails));
-    file_put_contents("db/users/mt/mt.json", json_encode($userDetails), FILE_APPEND);
+    file_put_contents("db/users/Medical Team (MT).json", json_encode($userDetail));
+}
 
+function get_file($designation){
+    $data = file_get_contents("db/users/" . $designation . ".json");
+    $update = json_decode($data, true);
+    return $update;
 }

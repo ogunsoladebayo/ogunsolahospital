@@ -24,7 +24,6 @@ $_SESSION["designation"] = $designation;
 
 
 if ($error == True) {
-   // print a more advanced error message with accurate feedback
    header("Location: register.php");
    $_SESSION["error"] = "Please fill the form completely";
 }
@@ -32,14 +31,20 @@ elseif ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
    $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
    header("Location: register.php");
 }
-// elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//    $_SESSION["emailError"] = "Please enter a valid email";
-//    // header("Location: register.php");
-// }
 
 else{
    $idCount = count(scandir("db/users/"));
 
+   $userDetail = get_file($designation);
+   $userDetail[] = Array(
+      'id' => $userCount = $idCount - 1,
+      'first_name' => $first_name,
+      'last_name' => $last_name,
+      'email' => $email,
+      'house_address' => $house_address,
+      'gender' => $gender,
+      'department' => $department,
+      );
    $userDetails = [
    'id' => $userCount = $idCount - 1,
    'first_name' => $first_name,
@@ -59,10 +64,10 @@ else{
       die();
    }
    if($designation == 'Medical Team (MT)'){
-      save_mt($userDetails);
-   }else{
-      save_patient($userDetails);
-      
+      save_mt($userDetails, $userDetail);
+
+   }elseif($designation == 'Patient'){
+      save_patient($userDetails, $userDetail);
    }
    
    $_SESSION["success"] = "Congratulations, You are now registered! Please, You can now log in.";
