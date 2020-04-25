@@ -32,7 +32,7 @@
       <?php } ?>
       <p>
          <label> Email address </label><br>
-         <input class="form-control" ?php if (isset($_SESSION['email'])){echo "value=" . $_SESSION['email'];} ?> type="text" name="email" placeholder="example@gmail.com">
+         <input class="form-control" <?php if (isset($_SESSION['email'])){echo "value=" . $_SESSION['email'];} ?> type="text" name="email" placeholder="example@gmail.com">
       </p>
       <p>
       <label>Enter your new Password </label><br>

@@ -15,10 +15,10 @@
    <?php
    if ($_SESSION['role'] == 'Patient'){
       echo "   <a href='bills.php'>Pay Bills</a> | 
-      <a href='appointment.php'>Book Appointment</a>";
+      <a href='bookappointment.php'>Book Appointment</a>";
    }
    elseif ($_SESSION['role'] == 'Medical Team (MT)'){
-      echo "<a href='patients.php'>Check Patients' details</a> ";
+      echo "<a href='viewpatients.php'>Check Patients' details</a> ";
       if (file_exists('db/appointments/' . $_SESSION['department'] . '.json')){
       echo "  | <a href='viewappointment.php'>View Appointments </a> ";
       }
@@ -28,7 +28,7 @@
    }
    elseif ($_SESSION['role'] == 'Medical Director'){
       echo "<a href='patients.php'>View all patients</a> | ";
-      echo "<a href='mt.php'>View all Staff</a> ";
+      echo "<a href='viewmt.php'>View all Staff</a> ";
    }
 
    ?>

@@ -13,7 +13,7 @@ echo "<tr><th>Patient ID</th>";
 echo "<th>Full Name</th>";
 echo "<th>Appointment Date</th>";
 echo "<th>Appointment Time</th>";
-echo "<th>Appointment Nature</th>";
+echo "<th>Nature of Appointment</th>";
 echo "<th>Initial Complaint</th></tr>";
 foreach($json_decoded as $result){
   echo '<tr>';
