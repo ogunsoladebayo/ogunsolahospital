@@ -1,6 +1,6 @@
 <?php
 include_once('lib/header.php');
-if (!isset($_SESSION["role"]) && $_SESSION["role"] != "Medical Director") {
+if (!isset($_SESSION["role"]) && $_SESSION["role"] != "Medical Director" || $_SESSION["role"] != "Medical Team (MT)") {
     header("Location: login.php");
     }
 

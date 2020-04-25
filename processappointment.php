@@ -27,6 +27,7 @@ if ($error == True) {
 else{
     $update = save_appointment($department);
     $update[] = Array(
+    'id' => $_SESSION['id'],
     'full_name' => $_SESSION['logged_in'],
     'appointment_date' => $appointment_date,
     'appointment_time' => $appointment_time,
