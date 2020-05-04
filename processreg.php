@@ -6,14 +6,32 @@ $error = False;
 
 $first_name = $_POST['first_name'] != ""? $_POST['first_name'] : $error = True;
 $last_name = $_POST['last_name'] != "" ? $_POST['last_name'] : $error = True;
-$email = $_POST['email'] != "" ? $_POST['email'] : $error = True;
+// $email = $_POST['email'] != "" ? $_POST['email'] : $error = True;
 $password = $_POST['password'] != "" ? $_POST['password'] : $error = True;
 $gender = $_POST['gender'] != "" ? $_POST['gender'] : $error = True;
 $designation = $_POST['designation'] != "" ? $_POST['designation'] : $error = True;
 $department = $_POST['department'] != "" ? $_POST['department'] : $error = True;
 $house_address = $_POST['house_address'] != "" ? $_POST['house_address'] : $error = True;
 
+if(filter_has_var(INPUT_POST, 'email')){
+if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
+   $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
+   header("Location: register.php");
+}
 
+if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
+   $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
+   header("Location: register.php");
+}
+
+if(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)){
+   $email = $_POST['email'];
+}else{
+   $_SESSION['error'] = 'Please enter a valid email address';
+}
+   header('Location: register.php');
+   die;
+}
 $_SESSION["first_name"] = $first_name;
 $_SESSION["last_name"] = $last_name;
 $_SESSION["email"] = $email;
@@ -23,15 +41,10 @@ $_SESSION["gender"] = $gender;
 $_SESSION["designation"] = $designation;
 
 
-if ($error == True) {
+if ($error == true) {
    header("Location: register.php");
    $_SESSION["error"] = "Please fill the form completely";
 }
-elseif ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
-   $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
-   header("Location: register.php");
-}
-
 else{
    $idCount = count(scandir("db/users/"));
 

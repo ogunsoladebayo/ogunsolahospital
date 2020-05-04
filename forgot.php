@@ -12,9 +12,9 @@ require_once ("functions/alert.php")?>
             echo "value=" . $_SESSION['email'];
          }
          ?>
-         type="text" name="email" placeholder="example@gmail.com">
+         type="text" class="form-control" name="email" placeholder="example@gmail.com">
       </p>
-      <p><button type="submit">Reset Password</button></p>
+      <p><button class="btn btn-sm btn-primary" type="submit">Reset Password</button></p>
 
    </form>
    <?php include_once ('lib/footer.php'); ?>

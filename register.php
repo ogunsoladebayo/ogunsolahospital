@@ -19,9 +19,6 @@
 
    <form action="processreg.php" method="POST">
       <p>
-         <?php print_alert(); ?>
-      </p>
-      <p>
          <label> First Name </label><br>
          <input 
          <?php
@@ -78,6 +75,7 @@
 
       <p>
          <label> Email address </label><br>
+         <?php "<>" . print_alert() . "</span>"; ?>
          <input 
          <?php
          if (isset($_SESSION["email"])){

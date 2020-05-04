@@ -1,15 +1,18 @@
 <?php 
    include_once ('lib/header.php');
    require_once('functions/alert.php');
+   if (!isset($_SESSION["logged_in"])) {
+      header("Location: login.php");
+      }
+   
    ?>
    <p>
       <?php print_alert(); ?>
    </p>
 
-
    <h3>My Dashboard</h3><hr>
-   Welcome, <?php echo $_SESSION["logged_in"];?><br>
-   User ID - <?php echo $_SESSION["id"];?><br>
+   Welcome, <?php echo $_SESSION["first_name"] . ' ' . $_SESSION["last_name"];?><br>
+   User ID - <?php echo $_SESSION["logged_in"];?><br>
    Role -  <?php echo $_SESSION["role"];?><br>
 
    <?php
@@ -27,7 +30,7 @@
       }
    }
    elseif ($_SESSION['role'] == 'Medical Director'){
-      echo "<a href='patients.php'>View all patients</a> | ";
+      echo "<a href='viewpatients.php'>View all patients</a> | ";
       echo "<a href='viewmt.php'>View all Staff</a> ";
    }
 

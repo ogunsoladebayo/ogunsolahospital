@@ -14,10 +14,6 @@ function token_set(){
 }
 
 function search_patient($email = ""){
-    if (!isset($email)) {
-        set_Alert('error', 'User Email is not set');
-        die;
-    }
     $dbArray = scandir("db/users/patients/");
     $idCount = count($dbArray);
 
