@@ -9,8 +9,8 @@ require_once('functions/alert.php') ?>
   <h1 class="display-4">Welcome to OGUNSOLA Hospital: The best healthcare specialists</h1>
   <p class="lead">We are all you need for a better health....</p>
   <p>
-      <a class="btn btn-bg btn-outline-secondary" href= "Login.php">Login</a>
-      <a class="btn btn-bg btn-outline-primary" href= "Register.php">Register</a>
+      <a class="btn btn-bg btn-outline-secondary" href= "login.php">Login</a>
+      <a class="btn btn-bg btn-outline-primary" href= "register.php">Register</a>
 
     </p>
 </div>

@@ -27,7 +27,7 @@
       }
    }
    elseif ($_SESSION['role'] == 'Medical Director'){
-      echo "<a href='patients.php'>View all patients</a> | ";
+      echo "<a href='viewpatients.php'>View all patients</a> | ";
       echo "<a href='viewmt.php'>View all Staff</a> ";
    }
 
