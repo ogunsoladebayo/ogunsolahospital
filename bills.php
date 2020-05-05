@@ -9,15 +9,20 @@
     header("Location: login.php");
     }
 
+    $booked_appointment = false;
     $appointmentfile = json_decode(file_get_contents('db/appointments/'. $_SESSION['department'] .'.json'));
     foreach ($appointmentfile as $key => $value) {
-        if ($value-> id == $_SESSION['logged_in']) {
-        break;
-    }else{
+        foreach($value as $checker){
+            if ( $checker == $_SESSION['logged_in']) {
+            $booked_appointment = true;
+        }
+    }
+    }
+    if($booked_appointment == false){
             set_Alert('error', 'You have not booked an appointment, you have no bills');
             redirect_to('bookappointment.php');
     }
-}
+
         $txref = "ogunsola_";
         for ($i = 0; $i < 7; $i++) {
             $txref .= mt_rand(0, 6);

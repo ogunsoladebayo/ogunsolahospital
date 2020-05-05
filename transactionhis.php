@@ -6,13 +6,13 @@ if (!isset($_SESSION["role"])) {
 if(file_exists("flutterwave/transactionData/" . $_SESSION['email'] . ".json")){
 $json = file_get_contents("flutterwave/transactionData/" . $_SESSION['email'] . ".json");
 $json_decoded = json_decode($json);
-echo '<table>';
-echo "<tr><th>Transaction ID | </th>";
-echo "<th>Transaction Ref | </th>";
-echo "<th>Date | </th>";
-echo "<th>Time | </th>";
-echo "<th>Amount | </th>";
-echo "<th>Narration | </th>";
+echo "<table style= 'width:100%'>";
+echo "<tr><th>Transaction ID </th>";
+echo "<th>Transaction Ref </th>";
+echo "<th>Date </th>";
+echo "<th>Time </th>";
+echo "<th>Amount </th>";
+echo "<th>Narration </th>";
 echo "<th>Status</th></tr>";
 foreach($json_decoded as $result){
   echo '<tr>';

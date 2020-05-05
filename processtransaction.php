@@ -25,8 +25,8 @@ if(!isset($_GET['txref'])){
         if($transactionDetails-> Status == 'successful'){
             set_Alert('success', 'Your payment was successful, your appointment is now acknowledged');
             $data = file_get_contents('db/appointments/' . $userDetails -> department . '.json');
+            $admin_record = file_get_contents('flutterwave/transactionData/paymentrecord.json');
 
-            // decode json to array
             $json_arr = json_decode($data, true);
             
             foreach ($json_arr as $key => $value) {
@@ -34,9 +34,19 @@ if(!isset($_GET['txref'])){
                     $json_arr[$key]['bills'] = "Paid";
                 }
             }
+
+            $admin_record[] = Array(
+                'PatiientID' => $userDetails -> id,
+                'PatientName' => $userDetails -> first_name.' '.$userDetails -> last_name,
+                'TransactionID' => $transactionDetails-> TransactionID,
+                'TransactionRef' => $transactionDetails-> TransactionRef,
+                'Date' => $transactionDetails-> Date,
+                'Time' => $transactionDetails-> Time,
+                'Amount' => $transactionDetails-> Amount
+            );
             
-            // encode array to json and save to file
             file_put_contents('db/appointments/' . $userDetails -> department . '.json', json_encode($json_arr));
+            file_put_contents('flutterwave/transactionData/paymentrecord.json', json_encode($admin_record));
         }
         elseif($transactionDetails-> Status == 'failed'){
             set_Alert('error', 'The payment failed, please try again');
