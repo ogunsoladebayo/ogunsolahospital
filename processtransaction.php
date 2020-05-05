@@ -24,6 +24,19 @@ if(!isset($_GET['txref'])){
         $_SESSION["department"] = $userDetails -> department;
         if($transactionDetails-> Status == 'successful'){
             set_Alert('success', 'Your payment was successful, your appointment is now acknowledged');
+            $data = file_get_contents('db/appointments/' . $userDetails -> department . '.json');
+
+            // decode json to array
+            $json_arr = json_decode($data, true);
+            
+            foreach ($json_arr as $key => $value) {
+                if ($value['id'] == $userDetails -> id) {
+                    $json_arr[$key]['bills'] = "Paid";
+                }
+            }
+            
+            // encode array to json and save to file
+            file_put_contents('db/appointments/' . $userDetails -> department . '.json', json_encode($json_arr));
         }
         elseif($transactionDetails-> Status == 'failed'){
             set_Alert('error', 'The payment failed, please try again');

@@ -2,10 +2,22 @@
    include_once ('lib/header.php');
    require_once('functions/alert.php');
    require_once('functions/user.php');
+   require_once('functions/redirect.php');
+
    if (!user_loggedIn() &&  !token_set()){
     $_SESSION["error"] = "You are not authorized to view this page";
     header("Location: login.php");
     }
+
+    $appointmentfile = json_decode(file_get_contents('db/appointments/'. $_SESSION['department'] .'.json'));
+    foreach ($appointmentfile as $key => $value) {
+        if ($value-> id == $_SESSION['logged_in']) {
+        break;
+    }else{
+            set_Alert('error', 'You have not booked an appointment, you have no bills');
+            redirect_to('bookappointment.php');
+    }
+}
         $txref = "ogunsola_";
         for ($i = 0; $i < 7; $i++) {
             $txref .= mt_rand(0, 6);
@@ -70,7 +82,7 @@
             <input type="hidden" name="ref" value="<?php echo $txref ?>" /> <!-- Replace the value with your transaction reference. It must be unique per transaction. You can delete this line if you want one to be generated for you. -->
             <input type="hidden" name="env" value="staging">
             <input type="hidden" name="publicKey" value="FLWPUBK_TEST-79f753c4ee38ae7ebd256c31526d7af7-X"> <!-- Put your public key here -->
-            <input type="hidden" name="secretKey" value="<?php echo 'FLWSECK_TEST-569ae29f3f3d6c0074d1aeb44207ccdb-X'; ?>"> <!-- Put your secret key here -->
+            <input type="hidden" name="secretKey" value="FLWSECK_TEST-569ae29f3f3d6c0074d1aeb44207ccdb-X"> <!-- Put your secret key here -->
             <input type="hidden" name="successurl" value="http://localhost/ogunsolahospital/processtransaction.php"> <!-- Put your success url here -->
             <input type="hidden" name="failureurl" value="http://localhost/ogunsolahospital/processtransaction.php"> <!-- Put your failure url here -->
             <input type="submit" class="btn btn-sm btn-primary" value="Pay Now" />

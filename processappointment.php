@@ -33,7 +33,8 @@ else{
     'appointment_time' => $appointment_time,
     'appointment_nature' => $appointment_nature,
     'initial_complaint' => $initial_complaint,
-    'department' => $department
+    'department' => $department,
+    'bills' => 'Unpaid'
     );
 
     file_put_contents("db/appointments/" . $department . ".json", json_encode($update));

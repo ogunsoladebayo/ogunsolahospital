@@ -4,8 +4,6 @@ require_once('functions/user.php');
 $error = False;
 // collecting each data from array
 
-$first_name = $_POST['first_name'] != ""? $_POST['first_name'] : $error = True;
-$last_name = $_POST['last_name'] != "" ? $_POST['last_name'] : $error = True;
 // $email = $_POST['email'] != "" ? $_POST['email'] : $error = True;
 $password = $_POST['password'] != "" ? $_POST['password'] : $error = True;
 $gender = $_POST['gender'] != "" ? $_POST['gender'] : $error = True;
@@ -13,22 +11,25 @@ $designation = $_POST['designation'] != "" ? $_POST['designation'] : $error = Tr
 $department = $_POST['department'] != "" ? $_POST['department'] : $error = True;
 $house_address = $_POST['house_address'] != "" ? $_POST['house_address'] : $error = True;
 
-if(filter_has_var(INPUT_POST, 'email')){
-if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
-   $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
-   header("Location: register.php");
-}
+// if(filter_has_var(INPUT_POST, 'email')){
+// if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
+//    $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
+//    header("Location: register.php");
+// }else{
+   $last_name = $_POST['last_name'];
+// }
 
-if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
-   $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
-   header("Location: register.php");
-}
+// if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
+//    $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
+//    header("Location: register.php");
+// }else{
+   $first_name = $_POST['first_name'];
+// }
 
 if(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)){
    $email = $_POST['email'];
 }else{
    $_SESSION['error'] = 'Please enter a valid email address';
-}
    header('Location: register.php');
    die;
 }
@@ -47,10 +48,11 @@ if ($error == true) {
 }
 else{
    $idCount = count(scandir("db/users/"));
+   $id =  uniqid('OG-');
 
    $userDetail = get_file($designation);
    $userDetail[] = Array(
-      'id' => $userCount = $idCount - 1,
+      'id' => $id,
       'first_name' => $first_name,
       'last_name' => $last_name,
       'email' => $email,
@@ -59,7 +61,7 @@ else{
       'department' => $department,
       );
    $userDetails = [
-   'id' => $userCount = $idCount - 1,
+   'id' => $id,
    'first_name' => $first_name,
    'last_name' => $last_name,
    'email' => $email,

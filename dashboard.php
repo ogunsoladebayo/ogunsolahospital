@@ -14,11 +14,14 @@
    Welcome, <?php echo $_SESSION["first_name"] . ' ' . $_SESSION["last_name"];?><br>
    User ID - <?php echo $_SESSION["logged_in"];?><br>
    Role -  <?php echo $_SESSION["role"];?><br>
+   Department -  <?php echo $_SESSION["department"];?><br>
+
 
    <?php
    if ($_SESSION['role'] == 'Patient'){
-      echo "   <a href='bills.php'>Pay Bills</a> | 
-      <a href='bookappointment.php'>Book Appointment</a>";
+      echo "<a href='bookappointment.php'>Book Appointment</a> | 
+               <a href='bills.php'>Pay Bills</a> | 
+               <a href='transactionhis.php'>Transaction History</a>";
    }
    elseif ($_SESSION['role'] == 'Medical Team (MT)'){
       echo "<a href='viewpatients.php'>Check Patients' details</a> ";
@@ -30,8 +33,9 @@
       }
    }
    elseif ($_SESSION['role'] == 'Medical Director'){
-      echo "<a href='viewpatients.php'>View all patients</a> | ";
-      echo "<a href='viewmt.php'>View all Staff</a> ";
+      echo "<a href='viewpatients.php'>View all patients</a> | 
+               <a href='viewmt.php'>View all Staff</a> | 
+               <a href='viewpayments.php'>Payments</a> ";
    }
 
    ?>

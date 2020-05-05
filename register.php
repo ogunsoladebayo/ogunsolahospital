@@ -27,10 +27,6 @@
          }
          ?>
          type="text" class="form-control" name="first_name" placeholder="First Name">
-         <?php 
-         if (isset($_SESSION["first_name_error"]) && !empty($_SESSION["first_name_error"])){
-               echo "<span style='color:red'>" . $_SESSION['first_name_error'] . "</span>";}
-         ?>
       </p>
       <p>
          <label> Last Name </label><br>
@@ -75,7 +71,6 @@
 
       <p>
          <label> Email address </label><br>
-         <?php "<>" . print_alert() . "</span>"; ?>
          <input 
          <?php
          if (isset($_SESSION["email"])){
