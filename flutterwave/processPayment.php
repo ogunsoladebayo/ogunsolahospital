@@ -84,7 +84,11 @@ class myEventHandler implements EventHandlerInterface{
                     save_transaction($transactionData);
                     $confirmtrans = array(
                         'TransactionRef' => $transactionData->txref,
-                        'Status' => $transactionData->status
+                        'Status' => $transactionData->status,
+                        'TransactionID' => $transactionData->txid,
+                        'Date' => date('l, d-m-Y'),
+                        'Time' => date('h:i:sa'),
+                        'Amount' => $transactionData->amount                        
                     );
                     file_put_contents("transactionData/thistransaction.json", json_encode($confirmtrans));
                     session_destroy();

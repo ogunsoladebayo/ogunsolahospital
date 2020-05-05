@@ -7,11 +7,11 @@ function save_transaction($transactionData){
         'TransactionRef' => $transactionData-> txref,
         'Date' => date('l, d-m-Y'),
         'Time' => date('h:i:sa'),
-        'Amount' => $transactionData->amount,
-        'Currency' => $transactionData->currency,
-        'Narration' => $transactionData->narration,
-        'Status' => $transactionData->status
+        'Amount' => $transactionData-> amount,
+        'Currency' => $transactionData-> currency,
+        'Narration' => $transactionData-> narration,
+        'Status' => $transactionData-> status
     );
-    file_put_contents("transactionData/" . $transactionData->custemail . ".json", json_encode($transaction));
+    file_put_contents("transactionData/" . $transactionData-> custemail . ".json", json_encode($transaction));
 
 }

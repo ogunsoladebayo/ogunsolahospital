@@ -12,20 +12,23 @@ if(!isset($_GET['txref'])){
 }else{
     if(file_exists("db/users/patients/" . $currentPatient-> email . ".json") && file_exists("flutterwave/transactionData/thistransaction.json")){
         $userDetails = json_decode(file_get_contents("db/users/patients/" . $currentPatient-> email . ".json"));
-        $transactionDetails = json_decode(file_get_contents("flutterwave/transactionData/thistransaction.json"));
+        $thistransaction = json_decode(file_get_contents("flutterwave/transactionData/thistransaction.json"));
+        $user_file = json_decode(file_get_contents('flutterwave/transactionData/'. $currentPatient-> email .'.json'));
+        $data = file_get_contents('db/appointments/' . $userDetails -> department . '.json');
+        $admin_record = json_decode(file_get_contents('flutterwave/transactionData/paymentrecord.json'));
+
     }
     
-    if ($transactionDetails-> TransactionRef == $_GET['txref']){
+    if ($thistransaction-> TransactionRef == $_GET['txref']){
         $_SESSION["logged_in"] = $userDetails -> id;
         $_SESSION["email"] = $userDetails -> email;
         $_SESSION["role"] = $userDetails -> designation;
         $_SESSION["first_name"] = $userDetails -> first_name;
         $_SESSION["last_name"] = $userDetails -> last_name;
         $_SESSION["department"] = $userDetails -> department;
-        if($transactionDetails-> Status == 'successful'){
+
+        if($thistransaction-> Status == 'successful'){
             set_Alert('success', 'Your payment was successful, your appointment is now acknowledged');
-            $data = file_get_contents('db/appointments/' . $userDetails -> department . '.json');
-            $admin_record = file_get_contents('flutterwave/transactionData/paymentrecord.json');
 
             $json_arr = json_decode($data, true);
             
@@ -37,18 +40,18 @@ if(!isset($_GET['txref'])){
 
             $admin_record[] = Array(
                 'PatiientID' => $userDetails -> id,
-                'PatientName' => $userDetails -> first_name.' '.$userDetails -> last_name,
-                'TransactionID' => $transactionDetails-> TransactionID,
-                'TransactionRef' => $transactionDetails-> TransactionRef,
-                'Date' => $transactionDetails-> Date,
-                'Time' => $transactionDetails-> Time,
-                'Amount' => $transactionDetails-> Amount
+                'PatientName' => ($userDetails -> first_name.' '.$userDetails -> last_name),
+                'TransactionID' => $thistransaction-> TransactionID,
+                'TransactionRef' => $thistransaction-> TransactionRef,
+                'Date' => $thistransaction-> Date,
+                'Time' => $thistransaction-> Time,
+                'Amount' => $thistransaction-> Amount
             );
             
             file_put_contents('db/appointments/' . $userDetails -> department . '.json', json_encode($json_arr));
             file_put_contents('flutterwave/transactionData/paymentrecord.json', json_encode($admin_record));
         }
-        elseif($transactionDetails-> Status == 'failed'){
+        elseif($thistransaction-> Status == 'failed'){
             set_Alert('error', 'The payment failed, please try again');
         }
         elseif ($_GET['cancelled'] == 'true'){
@@ -57,7 +60,7 @@ if(!isset($_GET['txref'])){
         else{
             set_Alert('error', 'An error occured, please try again');
         }
-        unlink('flutterwave/transactionData/thistransaction.json');
+        // unlink('flutterwave/transactionData/thistransaction.json');
         redirect_to("dashboard.php");
         die();  
     }else{
