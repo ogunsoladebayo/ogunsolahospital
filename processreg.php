@@ -1,7 +1,11 @@
 <?php
 session_start();
 require_once('functions/user.php');
+require_once('functions/alert.php');
+require_once('functions/redirect.php');
+
 $error = False;
+$check = false;
 // collecting each data from array
 
 // $email = $_POST['email'] != "" ? $_POST['email'] : $error = True;
@@ -11,27 +15,26 @@ $designation = $_POST['designation'] != "" ? $_POST['designation'] : $error = Tr
 $department = $_POST['department'] != "" ? $_POST['department'] : $error = True;
 $house_address = $_POST['house_address'] != "" ? $_POST['house_address'] : $error = True;
 
-// if(filter_has_var(INPUT_POST, 'email')){
-// if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
-//    $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
-//    header("Location: register.php");
-// }else{
-   $last_name = $_POST['last_name'];
-// }
-
-// if ((!preg_match("/^[a-zA-Z ]*$/",$first_name)) || strlen($first_name) < 2){
-//    $_SESSION["first_name_error"] = "Name should not have numbers" . "<br>" . "Name should not be less than 2";
-//    header("Location: register.php");
-// }else{
+if (preg_match('/^[a-zA-Z\s]+$/', $_POST['first_name']) && strlen($_POST['first_name']) > 2){
    $first_name = $_POST['first_name'];
-// }
-
-if(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)){
-   $email = $_POST['email'];
 }else{
-   $_SESSION['error'] = 'Please enter a valid email address';
-   header('Location: register.php');
-   die;
+   set_Alert('error', "Name should not have numbers" . "<br>" . "Name should not be less than 2");
+   $check = true;
+}
+
+if (preg_match('/^[a-zA-Z\s]+$/', $_POST['last_name']) && strlen($_POST['last_name']) > 2){
+   $last_name = $_POST['last_name'];
+}else{
+   set_Alert('error', "Name should not have numbers" . "<br>" . "Name should not be less than 2");
+   $check = true;
+}
+if(filter_has_var(INPUT_POST, 'email')){
+   if(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)){
+      $email = $_POST['email'];
+   }else{
+      set_Alert('error', 'Email is invalid');
+      $check = true;
+   }
 }
 $_SESSION["first_name"] = $first_name;
 $_SESSION["last_name"] = $last_name;
@@ -43,9 +46,13 @@ $_SESSION["designation"] = $designation;
 
 
 if ($error == true) {
-   header("Location: register.php");
-   $_SESSION["error"] = "Please fill the form completely";
+   set_Alert("error","Please fill the form completely");
+   redirect_to("register.php");
 }
+elseif ($check == true) {
+   redirect_to("register.php");
+}
+
 else{
    $idCount = count(scandir("db/users/"));
    $id =  uniqid('OG-');
@@ -85,7 +92,7 @@ else{
       save_patient($userDetails, $userDetail);
    }
    
-   $_SESSION["success"] = "Congratulations, You are now registered! Please, You can now log in.";
-   header("Location: login.php");
+   set_Alert("success","Congratulations, You are now registered! Please, You can now log in.");
+   redirect_to("login.php");
 }
 ?>

@@ -60,7 +60,7 @@ if(!isset($_GET['txref'])){
         else{
             set_Alert('error', 'An error occured, please try again');
         }
-        // unlink('flutterwave/transactionData/thistransaction.json');
+        unlink('flutterwave/transactionData/thistransaction.json');
         redirect_to("dashboard.php");
         die();  
     }else{

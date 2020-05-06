@@ -12,9 +12,9 @@
 
    <h3>My Dashboard</h3><hr>
    Welcome, <?php echo $_SESSION["first_name"] . ' ' . $_SESSION["last_name"];?><br>
-   User ID - <?php echo $_SESSION["logged_in"];?><br>
-   Role -  <?php echo $_SESSION["role"];?><br>
-   Department -  <?php echo $_SESSION["department"];?><br>
+   User ID : <?php echo $_SESSION["logged_in"];?><br>
+   Role :  <?php echo $_SESSION["role"];?><br>
+   Department :  <?php echo $_SESSION["department"];?><br>
 
 
    <?php

@@ -18,6 +18,7 @@
    <div class="row col-6">
 
    <form action="processreg.php" method="POST">
+      <p><?php print_alert() ?></p>
       <p>
          <label> First Name </label><br>
          <input 
