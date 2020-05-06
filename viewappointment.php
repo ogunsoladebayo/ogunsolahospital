@@ -8,13 +8,13 @@ $department = $_SESSION['department'];
 
 $json = file_get_contents("db/appointments/" . $department . ".json");
 $json_decoded = json_decode($json);
-echo '<table>';
-echo "<tr><th>Patient ID | </th>";
-echo "<th>Full Name | </th>";
-echo "<th>Appointment Date | </th>";
-echo "<th>Appointment Time | </th>";
-echo "<th>Nature of Appointment | </th>";
-echo "<th>Initial Complaint | </th>";
+echo "<table style='width:100%'>";
+echo "<tr><th>Patient ID </th>";
+echo "<th>Full Name </th>";
+echo "<th>Appointment Date </th>";
+echo "<th>Appointment Time </th>";
+echo "<th>Nature of Appointment </th>";
+echo "<th>Initial Complaint </th>";
 echo "<th>Bills </th></tr>";
 foreach($json_decoded as $result){
   echo '<tr>';
