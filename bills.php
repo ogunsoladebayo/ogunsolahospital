@@ -88,8 +88,8 @@
             <input type="hidden" name="env" value="staging">
             <input type="hidden" name="publicKey" value="FLWPUBK_TEST-79f753c4ee38ae7ebd256c31526d7af7-X"> <!-- Put your public key here -->
             <input type="hidden" name="secretKey" value="FLWSECK_TEST-569ae29f3f3d6c0074d1aeb44207ccdb-X"> <!-- Put your secret key here -->
-            <input type="hidden" name="successurl" value="processtransaction.php"> <!-- Put your success url here -->
-            <input type="hidden" name="failureurl" value="processtransaction.php"> <!-- Put your failure url here -->
+            <input type="hidden" name="successurl" value="ogunsolahospital-sng-v3/processtransaction.php"> <!-- Put your success url here -->
+            <input type="hidden" name="failureurl" value="ogunsolahospital-sng-v3/processtransaction.php"> <!-- Put your failure url here -->
             <input type="submit" class="btn btn-sm btn-primary" value="Pay Now" />
         </form>
 </div>
