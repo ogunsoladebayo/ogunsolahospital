@@ -33,14 +33,16 @@ else {
                         // $userDetails = json_decode(file_get_contents("db/users/" . $currentUser));
                         $userDetails = search_mt($email) ?: search_patient($email);
                         $userDetails -> password = password_hash($password, PASSWORD_DEFAULT);
+                        $designation = $userDetails -> designation;
 
-                      unlink("db/users/" . $email . ".json");
+                      unlink("db/users/mt/" . $email . ".json");
+                      unlink("db/users/patient/" . $email . ".json");
 
                       $tokenContent = file_get_contents("db/token/" . $email . ".json");
                       if (isset($tokenContent)){
                         unlink("db/token/" . $email . ".json");
                         }
-                      file_put_contents("db/users/" . $userDetails-> email . ".json", json_encode($userDetails));
+                      file_put_contents("db/users/" . $designation . "/" . $userDetails-> email . ".json", json_encode($userDetails));
 
                       set_Alert('success', "Password successfully changed,Please log in.");
 

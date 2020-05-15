@@ -85,7 +85,13 @@
          <label> Password </label><br>
          <input type="password" class="form-control" name="password" placeholder="Password">
       </p>
-      
+
+      <p>
+         <p><?php print_alert() ?></p>
+         <label> Comfirm Password </label><br>
+         <input type="password" class="form-control" name="password2" placeholder="Re-enter Password">
+      </p>
+
       <hr/>
       <p>
          <label for="designation">Designation</label><br>

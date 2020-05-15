@@ -14,13 +14,13 @@ function token_set(){
 }
 
 function search_patient($email = ""){
-    $dbArray = scandir("db/users/patients/");
+    $dbArray = scandir("db/users/patient/");
     $idCount = count($dbArray);
 
     for ($i = 0; $i <= $idCount ; $i++){
         $currentUser = $dbArray[$i];
         if($currentUser == $email . ".json"){
-            $userDetails = json_decode(file_get_contents("db/users/patients/" . $currentUser));
+            $userDetails = json_decode(file_get_contents("db/users/patient/" . $currentUser));
             return $userDetails;
         }
      }
@@ -46,7 +46,7 @@ function search_mt($email = ""){
 }
 
 function save_patient($userDetails, $userDetail){
-    file_put_contents("db/users/patients/" . $userDetails['email'] . ".json", json_encode($userDetails));
+    file_put_contents("db/users/patient/" . $userDetails['email'] . ".json", json_encode($userDetails));
     file_put_contents("db/users/patient.json", json_encode($userDetail));
 }
 

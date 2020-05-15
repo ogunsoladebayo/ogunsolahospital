@@ -10,8 +10,8 @@ $currentPatient = search_patient($_COOKIE['email']);
 if(!isset($_GET['txref'])){
     redirect_to('login.php');
 }else{
-    if(file_exists("db/users/patients/" . $currentPatient-> email . ".json") && file_exists("flutterwave/transactionData/thistransaction.json")){
-        $userDetails = json_decode(file_get_contents("db/users/patients/" . $currentPatient-> email . ".json"));
+    if(file_exists("db/users/patient/" . $currentPatient-> email . ".json") && file_exists("flutterwave/transactionData/thistransaction.json")){
+        $userDetails = json_decode(file_get_contents("db/users/patient/" . $currentPatient-> email . ".json"));
         $thistransaction = json_decode(file_get_contents("flutterwave/transactionData/thistransaction.json"));
         $user_file = json_decode(file_get_contents('flutterwave/transactionData/'. $currentPatient-> email .'.json'));
         $data = file_get_contents('db/appointments/' . $userDetails -> department . '.json');

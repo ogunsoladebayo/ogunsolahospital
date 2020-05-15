@@ -8,8 +8,8 @@ $error = False;
 $check = false;
 // collecting each data from array
 
-// $email = $_POST['email'] != "" ? $_POST['email'] : $error = True;
 $password = $_POST['password'] != "" ? $_POST['password'] : $error = True;
+$password2 = $_POST['password2'] != "" ? $_POST['password2'] : $error = True;
 $gender = $_POST['gender'] != "" ? $_POST['gender'] : $error = True;
 $designation = $_POST['designation'] != "" ? $_POST['designation'] : $error = True;
 $department = $_POST['department'] != "" ? $_POST['department'] : $error = True;
@@ -35,6 +35,10 @@ if(filter_has_var(INPUT_POST, 'email')){
       set_Alert('error', 'Email is invalid');
       $check = true;
    }
+}
+if($password != $password2){
+    set_Alert('info', 'Passwords do not match');
+    $error = true;
 }
 $_SESSION["first_name"] = $first_name;
 $_SESSION["last_name"] = $last_name;

@@ -37,14 +37,13 @@ else{
       if (file_exists("db/users/mt/" . $currentMt-> email . ".json")){
          $userDetails = json_decode(file_get_contents("db/users/mt/" . $currentMt-> email . ".json"));
      }
-     elseif(file_exists("db/users/patients/" . $currentPatient-> email . ".json") || file_exists("flutterwave/transactionData/" . $currentPatient-> email . ".json")){
-         $userDetails = json_decode(file_get_contents("db/users/patients/" . $currentPatient-> email . ".json"));
-         $transactionDetails = json_decode(file_get_contents("flutterwave/transactionData/" . $currentPatient-> email . ".json"));
+     elseif(file_exists("db/users/patient/" . $currentPatient-> email . ".json")){
+         $userDetails = json_decode(file_get_contents("db/users/patient/" . $currentPatient-> email . ".json"));
 
      }
        $dbPassword = $userDetails -> password;
       $userPassword = password_verify($password, $dbPassword);
-      if ($dbPassword == $userPassword || $transactionDetails-> TransactionRef == $_GET['txref']){
+      if ($dbPassword == $userPassword){
       $_SESSION["logged_in"] = $userDetails -> id;
       $_SESSION["email"] = $userDetails -> email;
       setcookie('email', $userDetails-> email);
@@ -52,12 +51,6 @@ else{
       $_SESSION["first_name"] = $userDetails -> first_name;
       $_SESSION["last_name"] = $userDetails -> last_name;
       $_SESSION["department"] = $userDetails -> department;
-      if($transactionDetails-> Status == 'Success' && empty($password)){
-         $_SESSION['success'] = 'Payment Successful, You can now visit a medical staff for appointment';
-      }
-      // elseif{
-      //    $_SESSION['error'] = 'Payment Unsuccessful, Please try again';
-      // }
       redirect_to("dashboard.php");
       die();
    }
