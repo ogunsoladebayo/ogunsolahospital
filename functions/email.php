@@ -4,7 +4,7 @@ require_once('redirect.php');
 function send_mail($subject = "", $message = "", $email = ""){
     $headers = "From: no_reply@ogunowo.com" . "\r\n" .
     "CC: admin@ogunowo.com";
-    $try = mail($$email, $subject, $message, $headers);
+    $try = mail($email, $subject, $message, $headers);
     if ($try){
         set_Alert('success', "Password reset link has been successfully sent to " . $email . ". Please click the link sent to your email ");
         redirect_to("login.php");
