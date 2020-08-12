@@ -1,6 +1,6 @@
 # ogunsola hospital
 This is an authentication system modelled for a typical hospital website. It is a basic register and login system built with php and styled with bootstrap.
-This project has been hosted on http://www.ogunsolahosptital.epizy.com
+This project has been hosted on https://ogunsola-hospital.000webhostapp.com/
 
 Flutterwave payment system has been implemented, you can now pay bills.
 
